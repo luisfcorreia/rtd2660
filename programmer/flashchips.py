@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+
 from collections import namedtuple
 
 chip = namedtuple("flash", "model jedec size page block")

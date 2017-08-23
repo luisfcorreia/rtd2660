@@ -2,3 +2,4 @@
 
 # arduino port
 port = "/dev/ttyUSB0"
+speed = 115200

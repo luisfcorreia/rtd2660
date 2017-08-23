@@ -107,7 +107,7 @@ String ident = "Arduino I2C-to-USB 1.0";
 
 void setup() {
 	// initialize the serial communication:
-	Serial.begin(9600);
+	Serial.begin(115200);
         Wire.begin();
 	initAdapter();
 }

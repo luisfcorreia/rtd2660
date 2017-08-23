@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+
 import platform
 import sys
 from flashchips import chips
@@ -31,7 +32,7 @@ def main():
     sanity_check()
 
     # the name says it all, detect an arduino for translation to I2C
-    if detect_arduino() != "":
+    if detect_arduino() == "":
         print("no arduino found at " + port)
 
 

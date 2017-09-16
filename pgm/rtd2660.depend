@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1505600117 source:/home/lfcorreia/devel/rtd2660/pgm/crc.cpp
+	"crc.h"
+
+1500677539 /home/lfcorreia/devel/rtd2660/pgm/crc.h
+	<stdint.h>
+
+1505600120 source:/home/lfcorreia/devel/rtd2660/pgm/gff.cpp
+	"gff.h"
+
+1500677539 /home/lfcorreia/devel/rtd2660/pgm/gff.h
+	<stdint.h>
+
+1505601223 source:/home/lfcorreia/devel/rtd2660/pgm/i2c.cpp
+	<stdint.h>
+	"types.h"
+
+1505600734 /home/lfcorreia/devel/rtd2660/pgm/types.h
+
+1505601843 source:/home/lfcorreia/devel/rtd2660/pgm/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<memory.h>
+	"crc.h"
+	"i2c.h"
+	"gff.h"
+
+1500677539 /home/lfcorreia/devel/rtd2660/pgm/i2c.h
+	<stdint.h>
+

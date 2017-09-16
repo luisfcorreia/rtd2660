@@ -38,6 +38,51 @@ ERROR_SENDDATA = 'S'
 
 
 class I2C(object):
-    def __init__(self, port, speed):
+  def __init__(self, port, speed):
 
+  def SPICommonCommand(self, cmd_type, cmd_code, num_reads, num_writes, write_value):
 
+    num_reads &= 3;
+    num_writes &= 3;
+    write_value &= 0xFFFFFF;
+    reg_value = (cmd_type << 5) | (num_writes << 3) | (num_reads << 1);
+
+    WriteReg(0x60, reg_value);
+    WriteReg(0x61, cmd_code);
+
+    if numwrites == 3:
+      WriteReg(0x64, write_value >> 16);
+      WriteReg(0x65, write_value >> 8);
+      WriteReg(0x66, write_value);
+
+    if numwrites == 2:
+      WriteReg(0x64, write_value >> 8);
+      WriteReg(0x65, write_value);
+
+    if numwrites == 1:
+      WriteReg(0x64, write_value);
+
+    WriteReg(0x60, reg_value | 1);
+    #Execute the command
+    uint8_t  b;
+    do
+    {
+      b = ReadReg(0x60);
+    } while (b & 1); #
+    #TODO: add timeout and reset the controller
+    switch(num_reads)
+    {
+      case
+    0:
+    return 0;
+    case
+    1:
+    return ReadReg(0x67);
+    case
+    2:
+    return (ReadReg(0x67) << 8) | ReadReg(0x68);
+    case
+    3:
+    return (ReadReg(0x67) << 16) | (ReadReg(0x68) << 8) | ReadReg(0x69);
+    }
+    return 0;

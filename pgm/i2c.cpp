@@ -1,5 +1,41 @@
 #include <stdint.h>
-#include "types.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <linux/i2c-dev.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+
+// I2C Linux device handle
+int g_i2cFile;
+
+// open the Linux device
+void InitI2C() {
+
+	g_i2cFile = open("/dev/i2c-1", O_RDWR);
+	if (g_i2cFile < 0) {
+		perror("i2cOpen");
+		exit(1);
+	}
+}
+
+// close the Linux device
+void CloseI2C() {
+	close(g_i2cFile);
+}
+
+void SetI2CAddr(uint8_t address)
+{
+	if (ioctl(g_i2cFile, I2C_SLAVE, address) < 0) {
+		perror("i2cSetAddress");
+		exit(1);
+	}
+}
+
+
+
 //#include <Windows.h>
 //#include "CyAPI.h"
 //#include "cyioctl.h"
@@ -120,6 +156,7 @@ void CloseI2C() {
 }
 */
 
+
 bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
 {
 
@@ -137,14 +174,17 @@ uint8_t ReadReg(uint8_t reg)
 {
 }
 
-void SetI2CAddr(uint8_t value)
-{
-}
+/*
+bool InitI2C(int bus) {
 
-bool InitI2C() {
-return 1;
+	if ((file = open("/dev/i2c-1", O_RDWR)) < 0)
+		//ERROR HANDLING: you can check errno to see what went wrong
+		printf("Failed to open the i2c bus");
+
+    return file;
 }
 
 
 void CloseI2C() {
 }
+*/

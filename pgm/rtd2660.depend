@@ -11,13 +11,22 @@
 1500677539 /home/lfcorreia/devel/rtd2660/pgm/gff.h
 	<stdint.h>
 
-1505602160 source:/home/lfcorreia/devel/rtd2660/pgm/i2c.cpp
+1505766737 source:/home/lfcorreia/devel/rtd2660/pgm/i2c.cpp
 	<stdint.h>
-	"types.h"
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+	<string.h>
+	<linux/i2c-dev.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<sys/ioctl.h>
+	<fcntl.h>
+	"i2c.h"
 
 1505600734 /home/lfcorreia/devel/rtd2660/pgm/types.h
 
-1505601843 source:/home/lfcorreia/devel/rtd2660/pgm/main.cpp
+1505765520 source:/home/lfcorreia/devel/rtd2660/pgm/main.cpp
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -26,6 +35,6 @@
 	"i2c.h"
 	"gff.h"
 
-1500677539 /home/lfcorreia/devel/rtd2660/pgm/i2c.h
+1505766586 /home/lfcorreia/devel/rtd2660/pgm/i2c.h
 	<stdint.h>
 

@@ -364,10 +364,7 @@ bool ProgramFlash(const char *input_file_name, uint32_t chip_size) {
 int main(int argc, char* argv[])
 {
   uint8_t b;
-  if (!InitI2C()) {
-    printf("Can't connect to the USB device. Check the cable.\n");
-    return -1;
-  }
+  InitI2C();
   printf("Ready\n");
   SetI2CAddr(0x4a);
 

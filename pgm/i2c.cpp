@@ -32,6 +32,8 @@ void CloseI2C()
 
 void SetI2CAddr(uint8_t address)
 {
+    printf("Working with device %i.\n",address);
+
     if (ioctl(g_i2cFile, I2C_SLAVE, address) < 0)
     {
         perror("i2cSetAddress");
@@ -39,16 +41,10 @@ void SetI2CAddr(uint8_t address)
     }
 }
 
-static BYTE ReadNakCnt()
-{
-    uint8_t buf[1];
-    LONG buflen = sizeof(buf);
-    //ept->XferData(buf, buflen);
-    return buf[0];
-}
-
 bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
 {
+    printf("Writing %i bytes to %i.\n",len,reg);
+
     if (write(g_i2cFile, values, len) != len)
     {
         printf("Failed to write to the i2c bus.\n");
@@ -67,6 +63,8 @@ bool WriteReg(uint8_t reg, uint8_t value)
 
 bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
 {
+    printf("Reading %i bytes from %i.\n",len,reg);
+
     if (read(g_i2cFile, dest, len) != len)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
     {
         //ERROR HANDLING: i2c transaction failed

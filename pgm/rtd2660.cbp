@@ -33,7 +33,6 @@
 		<Unit filename="i2c.cpp" />
 		<Unit filename="i2c.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="types.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

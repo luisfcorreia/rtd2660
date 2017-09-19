@@ -16,7 +16,6 @@ int g_i2cFile;
 // open the Linux device
 void InitI2C()
 {
-
     g_i2cFile = open("/dev/i2c-1", O_RDWR);
     if (g_i2cFile < 0)
     {
@@ -50,6 +49,7 @@ static BYTE ReadNakCnt()
 
 static void ReadBytes(uint8_t *dest, uint8_t len)
 {
+/*
     uint8_t buf[64];
     LONG buflen = sizeof(buf);
     //ept->XferData(buf, buflen);
@@ -58,6 +58,29 @@ static void ReadBytes(uint8_t *dest, uint8_t len)
         len = (uint8_t)sizeof(buf);
     }
     memcpy(dest, buf, len);
+*/
+    for(int idx = 0; idx < len; idx++)
+    {
+        read(g_i2cFile, &dest[idx],1);
+    }
+
+}
+
+bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
+{
+
+    for(int idx = 0; idx < len; idx++)
+    {
+        write(g_i2cFile, &values[idx],1);
+    }
+
+    //return ReadNakCnt() == 0;
+    return 1;
+}
+
+bool WriteReg(uint8_t reg, uint8_t value)
+{
+    return WriteBytesToAddr(reg, &value, 1);
 }
 
 bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
@@ -71,32 +94,10 @@ bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
     return ReadNakCnt() == 0;
 }
 
-bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
-{
-    uint8_t buf[64];
-    if (len > 63)
-    {
-        len = 63;
-    }
-    LONG buflen =  len + 1;
-    buf[0] = reg;
-    for(int idx = 0; idx < len; idx++)
-    {
-        buf[1 + idx] = values[idx];
-    }
-
-    // ept->XferData(buf, buflen);
-    return ReadNakCnt() == 0;
-
-}
-
 uint8_t ReadReg(uint8_t reg)
 {
     uint8_t result;
     ReadBytesFromAddr(reg, &result, 1);
     return result;
 }
-bool WriteReg(uint8_t reg, uint8_t value)
-{
-    return WriteBytesToAddr(reg, &value, 1);
-}
+

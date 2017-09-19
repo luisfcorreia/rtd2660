@@ -50,12 +50,16 @@ static BYTE ReadNakCnt()
 bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
 {
 
-    for(int idx = 0; idx < len; idx++)
-    {
-        i2c_smbus_write_byte_data(g_i2cFile, reg, &values[idx])
-    }
-    //return ReadNakCnt() == 0;
+    if (write(g_i2cFile, values, len) != len)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
+        //ERROR HANDLING: i2c transaction failed
+        printf("Failed to write to the i2c bus.\n");
+    return 0;
+}
+else
+{
     return 1;
+}
+
 }
 
 bool WriteReg(uint8_t reg, uint8_t value)

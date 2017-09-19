@@ -47,33 +47,13 @@ static BYTE ReadNakCnt()
     return buf[0];
 }
 
-static void ReadBytes(uint8_t *dest, uint8_t len)
-{
-/*
-    uint8_t buf[64];
-    LONG buflen = sizeof(buf);
-    //ept->XferData(buf, buflen);
-    if (len > sizeof(buf))
-    {
-        len = (uint8_t)sizeof(buf);
-    }
-    memcpy(dest, buf, len);
-*/
-    for(int idx = 0; idx < len; idx++)
-    {
-        read(g_i2cFile, &dest[idx],1);
-    }
-
-}
-
 bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
 {
 
     for(int idx = 0; idx < len; idx++)
     {
-        write(g_i2cFile, &values[idx],1);
+        i2c_smbus_write_byte_data(g_i2cFile, reg, &values[idx])
     }
-
     //return ReadNakCnt() == 0;
     return 1;
 }
@@ -85,13 +65,27 @@ bool WriteReg(uint8_t reg, uint8_t value)
 
 bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
 {
-    uint8_t buf[2];
-    LONG buflen = sizeof(buf);
-    buf[0] = reg;
-    buf[1] = len;
-    //ept->XferData(buf, buflen);
-    ReadBytes(dest, len);
-    return ReadNakCnt() == 0;
+    /*
+        uint8_t buf[2];
+        LONG buflen = sizeof(buf);
+        buf[0] = reg;
+        buf[1] = len;
+        //ept->XferData(buf, buflen);
+        ReadBytes(dest, len);
+        return ReadNakCnt() == 0;
+    */
+    if (read(g_i2cFile, dest, len) != len)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
+    {
+        //ERROR HANDLING: i2c transaction failed
+        printf("Failed to read from the i2c bus.\n");
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+
+
 }
 
 uint8_t ReadReg(uint8_t reg)

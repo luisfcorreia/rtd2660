@@ -52,6 +52,10 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
     }
     else
     {
+
+        uint8_t result;
+        ReadBytesFromAddr(reg, &result, 1);
+
         usleep(500000);
         return 1;
     }

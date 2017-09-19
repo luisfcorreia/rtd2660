@@ -43,20 +43,28 @@ void SetI2CAddr(uint8_t address)
 
 bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
 {
+    uint8_t buf[64];
+    if (len > 63)
+    {
+        len = 63;
+    }
+    LONG buflen =  len + 1;
+    buf[0] = reg;
+    for(int idx = 0; idx < len; idx++)
+    {
+        buf[1 + idx] = values[idx];
+    }
+
     printf("Writing %i bytes to %02x\n",len,reg);
 
-    if (write(g_i2cFile, values, len) != len)
+    if (write(g_i2cFile, buf, buflen) != buflen)
     {
         printf("Failed to write to the i2c bus\n");
         return 0;
     }
     else
     {
-
-        uint8_t result;
-        ReadBytesFromAddr(reg, &result, 1);
-
-        usleep(500000);
+        usleep(50000);
         return 1;
     }
 }
@@ -74,7 +82,7 @@ bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
     }
     else
     {
-        usleep(500000);
+        usleep(50000);
         return 1;
     }
 }

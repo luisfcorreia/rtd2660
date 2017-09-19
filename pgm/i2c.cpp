@@ -49,17 +49,15 @@ static BYTE ReadNakCnt()
 
 bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
 {
-
-    if (write(g_i2cFile, values, len) != len)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
-        //ERROR HANDLING: i2c transaction failed
+    if (write(g_i2cFile, values, len) != len)
+    {
         printf("Failed to write to the i2c bus.\n");
-    return 0;
-}
-else
-{
-    return 1;
-}
-
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 bool WriteReg(uint8_t reg, uint8_t value)
@@ -69,15 +67,6 @@ bool WriteReg(uint8_t reg, uint8_t value)
 
 bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
 {
-    /*
-        uint8_t buf[2];
-        LONG buflen = sizeof(buf);
-        buf[0] = reg;
-        buf[1] = len;
-        //ept->XferData(buf, buflen);
-        ReadBytes(dest, len);
-        return ReadNakCnt() == 0;
-    */
     if (read(g_i2cFile, dest, len) != len)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
     {
         //ERROR HANDLING: i2c transaction failed
@@ -88,8 +77,6 @@ bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
     {
         return 1;
     }
-
-
 }
 
 uint8_t ReadReg(uint8_t reg)

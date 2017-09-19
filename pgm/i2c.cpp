@@ -52,7 +52,7 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
     }
     else
     {
-        usleep(5000);
+        usleep(500000);
         return 1;
     }
 }
@@ -70,7 +70,7 @@ bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
     }
     else
     {
-        usleep(5000);
+        usleep(500000);
         return 1;
     }
 }

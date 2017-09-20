@@ -57,7 +57,7 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
         buf[1 + idx] = values[idx];
     }
 
-    if (DEBUG)
+    //if (DEBUG)
         printf("Writing %i bytes to %02x\n",len,reg);
 
     if (write(g_i2cFile, buf, buflen) != buflen)
@@ -74,7 +74,7 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
 
 bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
 {
-    if (DEBUG)
+    //if (DEBUG)
         printf("Reading %i bytes from %02x\n",len,reg);
 
     if (read(g_i2cFile, dest, len) != len)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)

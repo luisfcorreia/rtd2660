@@ -10,7 +10,7 @@
 #include <fcntl.h>
 #include "i2c.h"
 
-#define DEBUG 0
+#define DEBUG 1
 
 // I2C Linux device handle
 int g_i2cFile;

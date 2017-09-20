@@ -45,6 +45,7 @@ static const FlashDesc FlashDevices[] =
     {"W25X20", 0xEF3012,      256,       256, 64},
     {"W25X40", 0xEF3013,      512,       256, 64},
     {"W25X80", 0xEF3014, 1 * 1024,       256, 64},
+    {"W25Q80", 0xEF4014, 1 * 1024,       256, 64},
     // Manufacturer: Macronix
     {"MX25L512", 0xC22010,       64,       256, 64},
     {"MX25L3205", 0xC22016, 4 * 1024,       256, 64},
@@ -66,6 +67,7 @@ enum ECommondCommandType
     E_CC_ERASE = 5
 };
 
+//SPICommonCommand(E_CC_READ, 0x9f, 3, 0, 0);
 uint32_t SPICommonCommand(ECommondCommandType cmd_type,
                           uint8_t cmd_code,
                           uint8_t num_reads,

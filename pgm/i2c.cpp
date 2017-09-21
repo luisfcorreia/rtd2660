@@ -84,7 +84,7 @@ bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
     //if (DEBUG)
         printf("Reading %i bytes from %02x\n",len,reg);
 
-    if (read(g_i2cFile, &dest, len) != len)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
+    if (read(g_i2cFile, dest, len) != len)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
     {
         //ERROR HANDLING: i2c transaction failed
         printf("Failed to read from the i2c bus\n");

@@ -52,7 +52,7 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
     }
     LONG buflen =  len + 1;
     buf[0] = reg;
-    for(int idx = 0; idx < len; idx++)
+    for(int idx = 0; idx <= len; idx++)
     {
         buf[1 + idx] = values[idx];
     }
@@ -92,9 +92,14 @@ bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
 uint8_t ReadReg(uint8_t reg)
 {
     uint8_t result;
-    ReadBytesFromAddr(reg, &result, 1);
-
-    printf("Read %02x from %02x\n",result,reg);
+    if(ReadBytesFromAddr(reg, &result, 1))
+    {
+        printf("Read %02x from %02x\n",result,reg);
+    }
+    else
+    {
+        printf("failed to read cenas");
+    };
 
     return result;
 }

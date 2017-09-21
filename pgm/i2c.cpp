@@ -10,8 +10,7 @@
 #include <fcntl.h>
 #include "i2c.h"
 
-#define DEBUG 1
-
+// I2C Linux device handle
 // I2C Linux device handle
 int g_i2cFile;
 
@@ -50,7 +49,7 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
     {
         len = 63;
     }
-    LONG buflen = len + 1;
+    uint8_t buflen = len + 1;
     buf[0] = reg;
 
     for(int idx = 1; idx < buflen; idx++)
@@ -91,7 +90,9 @@ bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
 
 uint8_t ReadReg(uint8_t reg)
 {
-    uint8_t result = 0;
+    uint8_t result;
+    memset(&result,0,1);
+
     if(ReadBytesFromAddr(reg, &result, 1))
     {
         printf("Read %02x from %02x\n",result,reg);

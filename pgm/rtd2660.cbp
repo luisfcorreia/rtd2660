@@ -30,6 +30,7 @@
 		<Unit filename="crc.h" />
 		<Unit filename="gff.cpp" />
 		<Unit filename="gff.h" />
+		<Unit filename="i2c-dev.h" />
 		<Unit filename="i2c.cpp" />
 		<Unit filename="i2c.h" />
 		<Unit filename="main.cpp" />

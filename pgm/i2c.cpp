@@ -56,7 +56,7 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
     for(int idx = 0; idx <= len; idx++)
     {
         buf[1 + idx] = values[idx];
-        printf("buf[%i] = %i\n",idx,values[idx]);
+        printf("buf[%i] = %i\n",idx+1,values[idx]);
     }
 
     //if (DEBUG)

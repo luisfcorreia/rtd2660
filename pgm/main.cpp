@@ -104,14 +104,9 @@ uint32_t SPICommonCommand(ECommondCommandType cmd_type,
     uint8_t b;
     do
     {
-        usleep(50000);
         b = ReadReg(0x60);
     }
     while (b & 1);    // TODO: add timeout and reset the controller
-
-    ReadReg(0x67);
-    ReadReg(0x68);
-    ReadReg(0x69);
 
     switch (num_reads)
     {

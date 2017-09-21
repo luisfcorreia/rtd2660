@@ -119,6 +119,6 @@ uint8_t ReadReg(uint8_t reg)
 
 bool WriteReg(uint8_t reg, uint8_t value)
 {
-    printf("Writing %02x to %02x\n",value,reg);
+    //printf("Writing %02x to %02x\n",value,reg);
     return WriteBytesToAddr(reg, &value, 1);
 }

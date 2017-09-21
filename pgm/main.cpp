@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <memory.h>
+#include <unistd.h>
 #include "crc.h"
 #include "i2c.h"
 #include "gff.h"
@@ -99,14 +100,16 @@ uint32_t SPICommonCommand(ECommondCommandType cmd_type,
         break;
     }
     WriteReg(0x60, reg_value | 1); // Execute the command
-    /*
+
     uint8_t b;
     do
     {
         b = ReadReg(0x60);
     }
     while (b & 1);    // TODO: add timeout and reset the controller
-    */
+
+    sleep(500);
+
     switch (num_reads)
     {
     case 0:

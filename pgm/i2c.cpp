@@ -90,14 +90,14 @@ bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
 
 uint8_t ReadReg(uint8_t reg)
 {
-
+/*
     uint8_t res;
 
     res = i2c_smbus_write_byte(g_i2cFile, reg);
     if (res < 0)
         printf("Warning - write failed\n");
-
-    return i2c_smbus_read_byte(g_i2cFile);
+*/
+    return i2c_smbus_read_byte_data(g_i2cFile,reg);
     /*
 
         uint8_t result;

@@ -50,17 +50,22 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
     {
         len = 63;
     }
-    LONG buflen =  len + 1;
+    LONG buflen = len + 1;
     buf[0] = reg;
     printf("buf[0] = %02x\n",reg);
+
     for(int idx = 0; idx < len; idx++)
     {
         buf[1 + idx] = values[idx];
-        printf("buf[%i] = %02x\n",idx+1,values[idx]);
+    }
+
+    for(int idx = 0; idx < len; idx++)
+    {
+        printf("values in buf[%i] = %02x\n",idx,buf[idx]);
     }
 
     //if (DEBUG)
-        printf("Writing %i bytes to %02x\n",len,reg);
+    printf("Writing %i bytes to %02x\n",len,reg);
 
     if (write(g_i2cFile, buf, buflen) != buflen)
     {

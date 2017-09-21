@@ -57,13 +57,13 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
     {
         buf[idx] = values[idx-1];
     }
-
+/*
     for(int idx = 0; idx < buflen; idx++)
     {
         printf("buf[%i] = %02x ",idx,buf[idx]);
     }
     printf("\n");
-
+*/
     if (write(g_i2cFile, buf, buflen) != buflen)
     {
         printf("Failed to write to the i2c bus\n");
@@ -93,7 +93,7 @@ bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
 
 uint8_t ReadReg(uint8_t reg)
 {
-    uint8_t result;
+    uint8_t result = 0;
     if(ReadBytesFromAddr(reg, &result, 1))
     {
         printf("Read %02x from %02x\n",result,reg);

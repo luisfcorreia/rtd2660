@@ -114,13 +114,7 @@ uint32_t SPICommonCommand(ECommondCommandType cmd_type,
     case 2:
         return (ReadReg(0x67) << 8) | ReadReg(0x68);
     case 3:
-        uint32_t blah;
-        blah = ReadReg(0x67) << 16;
-        blah = ReadReg(0x68) << 8;
-        blah = ReadReg(0x69) ;
-
-        //return (ReadReg(0x67) << 16) | (ReadReg(0x68) << 8) | ReadReg(0x69);
-        return blah;
+        return (ReadReg(0x67) << 16) | (ReadReg(0x68) << 8) | ReadReg(0x69);
     }
     return 0;
 }

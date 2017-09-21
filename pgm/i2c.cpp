@@ -3,12 +3,12 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include <linux/i2c-dev.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include "i2c.h"
+#include "i2c-dev.h"
 
 // I2C Linux device handle
 // I2C Linux device handle
@@ -56,13 +56,13 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
     {
         buf[idx] = values[idx-1];
     }
-/*
-    for(int idx = 0; idx < buflen; idx++)
-    {
-        printf("buf[%i] = %02x ",idx,buf[idx]);
-    }
-    printf("\n");
-*/
+    /*
+        for(int idx = 0; idx < buflen; idx++)
+        {
+            printf("buf[%i] = %02x ",idx,buf[idx]);
+        }
+        printf("\n");
+    */
     if (write(g_i2cFile, buf, buflen) != buflen)
     {
         printf("Failed to write to the i2c bus\n");
@@ -90,20 +90,31 @@ bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
 
 uint8_t ReadReg(uint8_t reg)
 {
-    uint8_t result;
-    memset(&result,0,1);
 
-    if(ReadBytesFromAddr(reg, &result, 1))
-    {
-        printf("Read %02x from %02x\n",result,reg);
-    }
-    else
-    {
-        result =0;
-        printf("Failed to read from the i2c bus\n");
-    };
+    uint8_t res;
 
-    return result;
+    res = i2c_smbus_write_byte(g_i2cFile, reg);
+    if (res < 0)
+        printf("Warning - write failed\n");
+
+    return i2c_smbus_read_byte(g_i2cFile);
+    /*
+
+        uint8_t result;
+        memset(&result,0,1);
+
+        if(ReadBytesFromAddr(reg, &result, 1))
+        {
+            printf("Read %02x from %02x\n",result,reg);
+        }
+        else
+        {
+            result =0;
+            printf("Failed to read from the i2c bus\n");
+        };
+
+        return result;
+        */
 }
 
 bool WriteReg(uint8_t reg, uint8_t value)

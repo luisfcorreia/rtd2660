@@ -76,7 +76,7 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
     */
 
 
-    if (i2c_smbus_write_block_data(g_i2cFile, reg, len, values) != len)
+    if (i2c_smbus_write_i2c_block_data(g_i2cFile, reg, len, values) != len)
     {
         printf("Failed to write to the i2c bus\n");
         return 0;

@@ -76,45 +76,14 @@ bool WriteBytesToAddr(uint8_t reg, uint8_t* values, uint8_t len)
 
 bool ReadBytesFromAddr(uint8_t reg, uint8_t* dest, uint8_t len)
 {
-    //read() returns the number of bytes actually read, if it doesn't match
-    //then an error occurred (e.g. no response from the device)
-    if (read(g_i2cFile, dest, len) != len)
-    {
-        return 0;
-    }
-    else
-    {
-        return 1;
-    }
+
+    i2c_smbus_read_i2c_block_data(g_i2cFile,reg,len,dest);
+
 }
 
 uint8_t ReadReg(uint8_t reg)
 {
-/*
-    uint8_t res;
-
-    res = i2c_smbus_write_byte(g_i2cFile, reg);
-    if (res < 0)
-        printf("Warning - write failed\n");
-*/
     return i2c_smbus_read_byte_data(g_i2cFile,reg);
-    /*
-
-        uint8_t result;
-        memset(&result,0,1);
-
-        if(ReadBytesFromAddr(reg, &result, 1))
-        {
-            printf("Read %02x from %02x\n",result,reg);
-        }
-        else
-        {
-            result =0;
-            printf("Failed to read from the i2c bus\n");
-        };
-
-        return result;
-        */
 }
 
 bool WriteReg(uint8_t reg, uint8_t value)

@@ -216,12 +216,12 @@ void SetupChipCommands(uint32_t jedec_id)
     {
     case 0xEF:
         // These are the codes for Winbond
-        WriteReg(0x62, 0x6);  // Flash Write enable op code
+        WriteReg(0x62, 0x06); // Flash Write enable op code
         WriteReg(0x63, 0x50); // Flash Write register op code
-        WriteReg(0x6a, 0x3);  // Flash Read op code.
-        WriteReg(0x6b, 0xb);  // Flash Fast read op code.
-        WriteReg(0x6d, 0x2);  // Flash program op code.
-        WriteReg(0x6e, 0x5);  // Flash read status op code.
+        WriteReg(0x6a, 0x03); // Flash Read op code.
+        WriteReg(0x6b, 0x0b); // Flash Fast read op code.
+        WriteReg(0x6d, 0x02); // Flash program op code.
+        WriteReg(0x6e, 0x05); // Flash read status op code.
         break;
     default:
         printf("Can not handle manufacturer code %02x\n", manufacturer_id);
@@ -246,7 +246,7 @@ bool SaveFlash(const char *output_file_name, uint32_t chip_size)
     }
     /**
      * don't read entire flash chip but only
-     * 0x3ffff bytes (128k) which corresponds
+     * 0x3ffff bytes (256k) which corresponds
      * to found firmwares around the web
      *
      * while (addr < chip_size);

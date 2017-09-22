@@ -244,7 +244,15 @@ bool SaveFlash(const char *output_file_name, uint32_t chip_size)
         ProcessCRC(buffer, sizeof(buffer));
         addr += sizeof(buffer);
     }
-    while (addr < chip_size);
+    /**
+     * don't read entire flash chip but only
+     * 0x3ffff bytes (128k) which corresponds
+     * to found firmwares around the web
+     *
+     * while (addr < chip_size);
+     *
+     */
+    while (addr < 0x3ffff);
     printf("done.\n");
     fclose(dump);
     uint8_t data_crc = GetCRC();

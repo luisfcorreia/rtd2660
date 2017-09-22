@@ -139,8 +139,8 @@ void SPIRead(uint32_t address, uint8_t *data, int32_t len)
     while (len > 0)
     {
         int32_t read_len = len;
-        if (read_len > 64)
-            read_len = 64;
+        if (read_len > 30)
+            read_len = 30;
         ReadBytesFromAddr(0x70, data, read_len);
         data += read_len;
         len -= read_len;
